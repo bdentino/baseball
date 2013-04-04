@@ -1,0 +1,54 @@
+.field {
+  position: absolute;
+
+  background-image: url('/images/BaseballField.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+}
+
+.bat {
+  position: absolute;
+
+  background-image: url('/images/BaseballBat.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  height: 100%;
+  width: 100%;
+
+  top: 290px;
+  right: 35px;
+
+}
+
+.ball {
+  position: absolute;
+
+  background-image: url('/images/Baseball.png');
+  background-repeat: no-repeat;
+  background-position: center;
+
+  height: 100%;
+  width: 100%;
+
+  -webkit-transform: scale(0.1);
+
+  -webkit-animation-name: pitch;
+  -webkit-animation-duration: 1s; 
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation-iteration-count: 50;
+
+}
+
+@-webkit-keyframes pitch {
+  from {
+    top: 0px;
+  }
+  to {
+    top: 290px;
+  }
+}
+
+

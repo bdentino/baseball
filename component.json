@@ -1,0 +1,13 @@
+{
+  "name": "baseball",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "styles": [
+    "index.css"
+  ],
+  "dependencies": {
+    "matthewmueller/io": "*"
+  }
+}
