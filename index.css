@@ -35,11 +35,8 @@
 
   -webkit-transform: scale(0.1);
 
-  -webkit-animation-name: pitch;
   -webkit-animation-duration: 1s; 
   -webkit-animation-timing-function: ease-in;
-  -webkit-animation-iteration-count: 50;
-
 }
 
 @-webkit-keyframes pitch {
