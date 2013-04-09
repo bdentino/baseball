@@ -36,7 +36,7 @@
   -webkit-transform: scale(0.1);
 
   -webkit-animation-duration: 1s; 
-  -webkit-animation-timing-function: ease-in;
+  -webkit-animation-fill-mode: forwards;
 }
 
 @-webkit-keyframes pitch {
@@ -44,7 +44,18 @@
     top: 0px;
   }
   to {
-    top: 290px;
+    top: 280px;
+  }
+}
+
+@-webkit-keyframes hit {
+  from {
+    top: 280px;
+    left: 0px;
+  }
+  to {
+    top: -200px;
+    left: 80px;
   }
 }
 
