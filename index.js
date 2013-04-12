@@ -45,7 +45,7 @@ function onPitchEnd(event) {
   if (event.animationName !== 'pitch')
     return;
   console.log(event);
-  if (event.keyText === '80%') {
+  if (event.keyText === '50%') {
     hitting = true;
     console.log("pitch ended with bat at " + batAngle + " degrees");
     if (batAngle > 150 || batAngle < 30) {
@@ -143,8 +143,11 @@ socket.on('batAngle', function(a) {
   batAngle = (a - defaultOffset + 90) % 360;
 });
 
+socket.on('resetBall', function(a) {
+  CSSAnimation.reset(ball);
+})
+
 socket.on('startPitch', function(a) {
-  //ball.style.webkitAnimationName = '';
   CSSAnimation.trigger(ball, 'pitch', 1000)
   swingPower = 0;
 });
@@ -162,6 +165,11 @@ document.ontouchend = function(e) {
     socket.emit('startPitch');
   }
   //bat.style['-webkit-transform'] = 'rotate('+ defaultRotation + 'deg) scale(0.25)';
+};
+
+document.ontouchstart = function(e) {
+  if (batSet)
+    socket.emit('resetBall');
 };
 
 /**
