@@ -47,6 +47,10 @@ function onPitchEnd(pitch) {
   console.log(pitch);
   hitting = true;
   console.log("pitch ended with bat at " + batAngle + " degrees");
+  if (batAngle < 30 || batAngle > 150) {
+    hitting = false;
+    return;
+  }
   var power = calculateEnergy(swing);
   var dist = powerToPixels(power);
   setupHit(batAngle - 90, dist);
@@ -135,6 +139,10 @@ socket.on('batAngle', function(a) {
   //console.log("batAngle: " + batAngle);
 });
 
+socket.on('resetBall', function(a) {
+  ball.style.webkitAnimationName = '';
+});
+
 socket.on('startPitch', function(a) {
   ball.style.webkitAnimationTimingFunction = 'ease-in';
   ball.style.webkitAnimationName = 'pitch';
@@ -155,6 +163,11 @@ document.ontouchend = function(e) {
   }
   //bat.style['-webkit-transform'] = 'rotate('+ defaultRotation + 'deg) scale(0.25)';
 };
+
+document.ontouchstart = function(e) {
+  if (batSet)
+    socket.emit('resetBall');
+}
 
 /**
  * Transform
