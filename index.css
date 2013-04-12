@@ -40,11 +40,14 @@
 }
 
 @-webkit-keyframes pitch {
-  from {
+  0% {
     top: 0px;
   }
-  to {
+  50% {
     top: 280px;
+  }
+  100% {
+    top: 560px;
   }
 }
 
@@ -56,6 +59,15 @@
   to {
     top: -200px;
     left: 80px;
+  }
+}
+
+@-webkit-keyframes whiff {
+  from {
+    top: 280px;
+  }
+  to {
+    top: 560px;
   }
 }
 

@@ -34,6 +34,36 @@ CSSAnimation.find = function(a) {
 	return null;
 };
 
+CSSAnimation.reset = function(elem) {
+	var element = elem;
+	prefixes = ['-webkit-', 'Moz'],
+	applyCSSAnimation = function(anim) {
+		found = false;
+		for(i=0; i<prefixes.length && !found; i++)
+		{
+			if(element.style[prefixes[i]+'animation-name'] !== undefined)
+			{
+				element.style[prefixes[i]+'animation-duration'] 		= anim.duration;
+				element.style[prefixes[i]+'animation-timing-function'] 	= anim.timingFunction;
+				element.style[prefixes[i]+'animation-iteration-count'] 	= anim.iterationCount;	
+				element.style[prefixes[i]+'animation-fill-mode']		= 'forwards';
+
+				element.style[prefixes[i]+'animation-name'] 			= anim.name;
+
+				found = true;
+			}
+		}
+	};
+
+	//Zero out any existing animation
+	applyCSSAnimation({
+		name: 				null,
+		duration: 			null,
+		timingFunction: 	null,
+		iterationCount: 	0
+	});
+
+}
 // Trigger a CSS3 Animation on a given element
 /**
  * Trigger a CSS3 Animation on a given element
@@ -73,8 +103,8 @@ CSSAnimation.trigger = function(elem, animationName, duration, opts) {
 		options[k] = opts[k];
 	
 	// Prevent animation triggers if the animation is already playing	
-	if(element.isPlaying)		
-		return;
+	//if(element.isPlaying)		
+		//return;
 	
 	// Can we find the animaition called animationName?
 	animation = CSSAnimation.find(animationName);
@@ -158,13 +188,6 @@ CSSAnimation.trigger = function(elem, animationName, duration, opts) {
 			}
 			else
 			{
-				//Zero out any existing animation
-				applyCSSAnimation({
-					name: 				null,
-					duration: 			null,
-					timingFunction: 	null,
-					iterationCount: 	0
-				});
 
 	  			element.isPlaying = false;		    
 			}
