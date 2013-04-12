@@ -41,20 +41,28 @@ console.log(hit);
 
 socket = io('http://ws.mat.io:80/baseball');
 
-function onPitchEnd(pitch) {
+function onPitchEnd(event) {
   if (event.animationName !== 'pitch')
     return;
-  console.log(pitch);
-  hitting = true;
-  console.log("pitch ended with bat at " + batAngle + " degrees");
-  var power = calculateEnergy(swing);
-  var dist = powerToPixels(power);
-  setupHit(batAngle - 90, dist);
-  var hitSound = document.getElementById('hitSound');
-  hitSound.play();
-  ball.style.webkitAnimationTimingFunction = 'ease-out';
-  ball.style.webkitAnimationName = 'hit';
-  hitting = false;
+  console.log(event);
+  if (event.keyText === '80%') {
+    hitting = true;
+    console.log("pitch ended with bat at " + batAngle + " degrees");
+    if (batAngle > 150 || batAngle < 30) {
+      var whiffSound = document.getElementById('whiffSound');
+      whiffSound.play();
+      hitting = false;
+      return;
+    }
+    var power = calculateEnergy(swing);
+    var dist = powerToPixels(power);
+    setupHit(batAngle - 90, dist);
+    var hitSound = document.getElementById('hitSound');
+    hitSound.play();
+    ball.style.webkitAnimationTimingFunction = 'ease-out';
+    CSSAnimation.trigger(ball, 'hit', 1000);
+    hitting = false;
+  }
 };
 
 function powerToPixels(p) {
@@ -80,7 +88,8 @@ function setupHit(angle, distance) {
   hit.setKeyframe('100%', {top: t, left: l} );
 };
 
-ball.addEventListener("webkitAnimationEnd",onPitchEnd, false);
+ball.addEventListener("cssAnimationKeyframe",onPitchEnd, false);
+
 
 /**
  * On device orientation
@@ -132,12 +141,11 @@ socket.on('batAngle', function(a) {
   a = a | 0;
   transform(a);
   batAngle = (a - defaultOffset + 90) % 360;
-  //console.log("batAngle: " + batAngle);
 });
 
 socket.on('startPitch', function(a) {
-  ball.style.webkitAnimationTimingFunction = 'ease-in';
-  ball.style.webkitAnimationName = 'pitch';
+  //ball.style.webkitAnimationName = '';
+  CSSAnimation.trigger(ball, 'pitch', 1000)
   swingPower = 0;
 });
 
