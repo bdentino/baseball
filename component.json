@@ -2,12 +2,17 @@
   "name": "baseball",
   "main": "index.js",
   "scripts": [
-    "index.js"
+    "index.js",
+    "batter.js",
+    "pitcher.js",
+    "field.js"
   ],
   "styles": [
     "index.css"
   ],
   "dependencies": {
-    "matthewmueller/io": "*"
+    "matthewmueller/io": "*",
+    "matthewmueller/device": "*",
+    "matthewmueller/socket-splash": "*"
   }
 }

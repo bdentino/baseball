@@ -1,4 +1,4 @@
-.field {
+.fieldImage {
   position: absolute;
 
   background-image: url('/images/BaseballField.jpg');
@@ -41,13 +41,13 @@
 
 @-webkit-keyframes pitch {
   0% {
-    top: 0px;
+    top: -80px;
   }
   50% {
     top: 280px;
   }
   100% {
-    top: 560px;
+    top: 640px;
   }
 }
 
@@ -68,6 +68,15 @@
   }
   to {
     top: 560px;
+  }
+}
+
+@-webkit-keyframes windUp {
+  from {
+    top: 0px;
+  }
+  to {
+    top: -80px;
   }
 }
 
